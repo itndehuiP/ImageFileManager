@@ -97,7 +97,7 @@ public struct ImageFileManager {
      - note: It deletes all the data saved using this manager.
      */
     public func deleteAll() {
-        if fileExists(path: directoryPath(createIfNeeded: false).absoluteString) {
+        if fileExists(path: directoryPath(createIfNeeded: false).path) {
             do {
                 try FileManager.default.removeItem(at: directoryPath(createIfNeeded: false))
             } catch {
@@ -111,7 +111,7 @@ public struct ImageFileManager {
      */
     public func delete(album: String) {
         guard let albumPath = albumDirectoryPath(album: album, createIfNeeded: false),
-              fileExists(path: albumPath.absoluteString) else { return }
+              fileExists(path: albumPath.path) else { return }
         do {
             try FileManager.default.removeItem(at: albumPath)
         } catch {
@@ -126,7 +126,7 @@ public struct ImageFileManager {
      */
     public func deleteImage(album: String? = nil, id: String?) {
         guard let id = id, let dataPath = dataDirectoryPath(album: album, with: id, createIfNeeded: false),
-              fileExists(path: dataPath.absoluteString) else { return }
+              fileExists(path: dataPath.path) else { return }
         do {
             try FileManager.default.removeItem(at: dataPath)
         } catch {
